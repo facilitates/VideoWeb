@@ -1,0 +1,25 @@
+卷 OS 的文件夹 PATH 列表
+卷序列号为 6E75-704C
+C:.
+├─.idea
+│  └─inspectionProfiles
+├─biz
+│  ├─handler
+│  │  └─videoweb
+│  ├─model
+│  │  └─videoweb
+│  ├─pack
+│  └─router
+│      └─videoweb
+├─conf
+├─dao
+├─idl
+├─pkg
+│  └─utils
+└─upload
+    ├─avatar
+    │  ├─102301636
+    │  └─ozline
+    └─video
+        ├─102301636
+        └─ozline
