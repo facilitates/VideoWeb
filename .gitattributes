@@ -1,0 +1,10 @@
+
+*.txt text eol=lf
+
+*.md text diff:auto eol=lf
+
+*.png binary
+
+*.jpg binary
+
+* text=auto
