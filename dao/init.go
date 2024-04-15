@@ -30,7 +30,7 @@ func initMysql(connstring string) {
 
 func initRedis(RedisAddr string, RedisPW string, RedisDbName int) {
 	Redisdb = redis.NewClient(&redis.Options{
-		Addr:     RedisAddr,
+		Addr:     "redis:6379",
 		Password: RedisPW,
 		DB:       RedisDbName,
 	})

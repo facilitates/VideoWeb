@@ -1,0 +1,41 @@
+version: '3'
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    networks:
+      - videoweb
+    depends_on:
+      - redis
+      - mysql
+      - rabbitmq
+  redis:
+    image: "redis:alpine"
+    networks:
+      - videoweb
+    container_name: redis-1
+    command: redis-server --requirepass 000000
+  mysql:
+    image: "mysql:5.7"
+    networks:
+      - videoweb
+    container_name: mysql-1
+    environment:
+      MYSQL_ROOT_PASSWORD: s88159868
+      MYSQL_DATABASE: videoweb
+  rabbitmq:
+    image: rabbitmq:management
+    networks:
+      - videoweb
+    container_name: rabbitmq-1
+    environment:
+      TZ: Asia/Shanghai
+      RABBITMQ_DEFAULT_USER: 102301636
+      RABBITMQ_DEFAULT_PASS: 102301636
+    volumes:
+      - ./data:/var/lib/rabbitmq
+      - ./conf:/etc/rabbitmq
+networks:
+  videoweb:
+    driver: bridge

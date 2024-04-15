@@ -1,0 +1,43 @@
+linters:
+  enable:
+    - golint
+    - govet
+    - errcheck
+    - staticcheck
+    - unused
+    - gosimple
+    - deadcode
+    - structcheck
+    - varcheck
+    - interfacer
+    - unconvert
+    - ineffassign
+    - nilerr
+    - whitespace
+    - misspell
+    - gas
+    - unparam
+    - paralleltest
+    - exhaustive
+    - nolintlint
+  disable:
+    - godox
+    - testpackage
+  presets:
+    - bugs
+    - complexity
+    - performance
+    - style
+    - unused
+
+run:
+  # timeout for analysis, e.g. 30s, 1m, 10m
+  timeout: 1m
+
+issues:
+  # Excluding configuration per-path, per-linter, per-text and per-source
+  exclude-use-default: false
+  exclude:
+    - gosimple: S1002 # Go code should not use underscores in Go names
+    - golint: gas # Golint error message
+    - type: some_error_type # Exclude some error type from all linters
