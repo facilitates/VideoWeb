@@ -27,14 +27,14 @@ var UserConns = make(map[string]*websocket.Conn)
 func Init() {
 	file, err := ini.Load("./conf/config.ini")
 	if err != nil {
-
 		fmt.Println("配置文件读取错误，请检查文件路径")
+		panic(err)
 	}
 	LoadServer(file)
 	LoadMysql(file)
 	LoadRedis(file)
 	LoadRabbitMQ(file)
-	mysqlPath := strings.Join([]string{DbUser, ":", DbPassWord, "@tcp(", DbHost, ":", DbPort, ")/", DbName, "?charset=utf8mb4&parseTime=true"}, "")
+	mysqlPath := strings.Join([]string{DbUser, ":", DbPassWord, "@tcp(", "mysql", ":", DbPort, ")/", DbName, "?charset=utf8mb4&parseTime=true"}, "")
 	rabbitMqPath := strings.Join([]string{"amqp://", RabbitMqUserName, ":", RabbitMqPassword, "@localhost:5672/"}, "")
 	dao.Init(mysqlPath, RedisAddr, RedisPW, RedisDbName, rabbitMqPath)
 }

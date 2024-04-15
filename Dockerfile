@@ -1,44 +1,33 @@
-# 使用官方Go镜像作为构建环境
+# 使用golang:alpine作为编译环境
 FROM golang:alpine AS builder
 
 # 设置工作目录
 WORKDIR /build
 
-# 复制go.mod和go.sum文件
+# 复制go.mod和go.sum到工作目录
 COPY go.mod go.sum ./
 
-# 下载依赖
+# 下载依赖包
 RUN go mod download
 
-# 复制项目文件
+# 复制当前目录到工作目录
 COPY . .
 
-# 构建应用程序
+# 编译Go应用程序，禁用CGO，指定目标操作系统为linux，输出可执行文件名为videoweb
 RUN CGO_ENABLED=0 GOOS=linux go build -o videoweb .
 
-# 使用alpine作为基础镜像
+# 最终使用的镜像
 FROM alpine:latest
 
-# 添加时区支持
-RUN apk --no-cache add ca-certificates tzdata
-ENV TZ Asia/Shanghai
+# 设置时区为上海
+ENV TZ=Asia/Shanghai
 
-# 设置工作目录
-WORKDIR /root/
+# 设置工作目录为/root
+WORKDIR /root
 
-# 从构建器镜像中复制二进制文件
-COPY --from=builder /build/videoweb .
+# 从builder阶段复制编译好的应用程序到当前镜像
+COPY --from=builder /build/. .
 
-# 安装MySQL
-RUN apk add --no-cache mysql mysql-client
-# 初始化MySQL数据库
-RUN mysql_install_db --user=mysql --ldata=/var/lib/mysql
+EXPOSE 3000
 
-# 安装Redis
-RUN apk add --no-cache redis
-
-# 暴露端口
-EXPOSE 3000 3306 6379
-
-# 运行应用程序
 CMD ["./videoweb"]
