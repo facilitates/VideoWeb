@@ -36,6 +36,8 @@
 
 ### [项目接口文档](https://apifox.com/apidoc/shared-dcb1a5ef-5c75-4a0e-9486-e3bd748379a0)
 
+### [飞书文档](https://kw4j2ps8re2.feishu.cn/docx/Vb51dqRcBoOfMsx5Rv9c1wm6nOb)
+
 ### 安装：进入项目使用docker-compose up
 
 
